@@ -34,6 +34,25 @@ defmodule Bomb.Wires do
     end
   end
 
+  def display(%{valid: true, count: 4, wire_list: wire_list}) do
+    cond do
+      count_color(wire_list, "red") > 1 ->
+        "If the last digit of the serial number is odd, cut the last red wire"
+
+      List.last(wire_list) == "yellow" && count_color(wire_list, "red") == 0 ->
+        "Cut the first wire"
+
+      count_color(wire_list, "blue") == 1 ->
+        "Cut the first wire"
+
+      count_color(wire_list, "yellow") > 1 ->
+        "Cut the last wire"
+
+      true ->
+        "Cut the second wire"
+    end
+  end
+
   def display(%{valid: true, count: 4}) do
     "there are four wires"
   end
